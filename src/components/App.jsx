@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../style.css'
 import {BrowserRouter , Route} from 'react-router-dom'
-
+import {connect} from 'react-redux'
 
 import Header from './Header'
 import PageOne from './PageOne'
@@ -12,9 +12,21 @@ import PageFourth from './PageFourth'
 import DetailEvent from './DetailEvent'
 import Event from './Event'
 import Cart from './Cart'
+import {keepLogin} from '../action/index' 
 
 
 export class App extends Component {
+    state = {
+        check : false
+    }
+    componentDidMount(){
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (user) {
+            this.props.keepLogin(user)
+        }
+        this.setState({check:true})
+    }
+
     render() {
         return (
         <BrowserRouter>
@@ -34,4 +46,4 @@ export class App extends Component {
     }
 }
 
-export default App
+export default connect(null,{keepLogin}) (App)

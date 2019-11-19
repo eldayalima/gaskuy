@@ -3,7 +3,8 @@ export const sendData = (username, id) => {
     return {
         type: "LOGIN_SUCCESS",
         payload: {
-            username, id
+            username, 
+            id
         }
     }
 }
