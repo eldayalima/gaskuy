@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import Image from '../image/gaskuy.png'
 import {Link} from 'react-router-dom'
-
+// keep login
+import axios from '../config/axios'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+import {sendData} from '../action/index'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {
@@ -36,6 +40,30 @@ export class Header extends Component {
         this.setState( prevstate => ({
             modal : !prevstate.modal,
         }))
+    }
+
+    Clicklogin = () =>{
+        let _username = this.username.value
+        let _password = this.password.value
+
+        axios.post('/user/login',
+            {
+                username : _username,
+                password : _password
+            }
+        ).then(res=>{
+            if (res.data.error) return alert(res.data.error)
+
+            alert('Login berhasil')            
+
+        
+
+        }).catch(err=>{
+            console.log(err)
+        })
+        
+        this.username.value = ''
+        this.password.value = ''
     }
 
     render() {
@@ -95,11 +123,11 @@ export class Header extends Component {
                         Login 
                     </ModalHeader>
                     <ModalBody>
-                        Username  <input className='form-control' placeholder='Masukan Username' type="text"/>
-                        Password  <input className='form-control' placeholder='Masukan Password' type="password"/>
+                        Username  <input className='form-control' ref={(input)=>{this.username = input}} placeholder='Masukan Username' type="text"/>
+                        Password  <input className='form-control' ref={(input)=>{this.password = input}} placeholder='Masukan Password' type="password"/>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={()=>{}}>Login</Button>
+                        <Button color="primary" onClick={()=>{this.Clicklogin()}}>Login</Button>
                         <Button color="secondary" onClick={this.login}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
