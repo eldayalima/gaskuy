@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Image from '../image/gaskuy.png'
+import Image2 from '../image/frh.jpeg'
 import {Link} from 'react-router-dom'
 // keep login
 import axios from '../config/axios'
@@ -7,6 +8,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {sendData} from '../action/index'
 import {onLougoutUser} from '../action/index'
+
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {
@@ -148,11 +150,15 @@ export class Header extends Component {
                 </NavItem>
 
             <UncontrolledDropdown>
-            <DropdownToggle nav inNavbar>
-                Hello, {this.props._username}
+            <DropdownToggle nav inNavbar style={{color:'white'}}>
+                <img src={Image2} style={{width:50, height:50, borderRadius:100}} alt=""/>
             </DropdownToggle>
 
+
             <DropdownMenu>
+                <span style={{fontFamily:'arial bold',fontSize:19}} className=''>
+                Hello, {this.props._username}
+                </span>
                 <NavLink tag={Link} to='/profile'>
                 <DropdownItem>Profile</DropdownItem>
                 </NavLink>
@@ -162,7 +168,7 @@ export class Header extends Component {
 
                 <DropdownItem divider/>
                 <NavLink onClick={this.props.onLougoutUser}>
-                <DropdownItem>Logout</DropdownItem>
+                <DropdownItem style={{color:'red'}}>Logout</DropdownItem>
                 </NavLink>
                 
             </DropdownMenu>

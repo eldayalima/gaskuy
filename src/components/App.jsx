@@ -14,7 +14,6 @@ import Event from './Event'
 import Cart from './Cart'
 import {keepLogin} from '../action/index' 
 
-
 export class App extends Component {
     state = {
         check : false
