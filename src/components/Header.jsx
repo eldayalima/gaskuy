@@ -6,6 +6,7 @@ import axios from '../config/axios'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {sendData} from '../action/index'
+import {onLougoutUser} from '../action/index'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {
@@ -221,4 +222,4 @@ const mapStateToProps = (state) =>{
     
 }
 
-export default connect(mapStateToProps,{sendData}) (Header)
+export default connect(mapStateToProps,{sendData, onLougoutUser}) (Header)
