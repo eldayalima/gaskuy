@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {sendData} from '../action/index'
 import {onLougoutUser} from '../action/index'
-
+import imageuser from '../image/user.png'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {
@@ -59,7 +59,9 @@ export class Header extends Component {
 
             alert('Login berhasil')   
             console.log(this.props)   
-            console.log(res.data)      
+            console.log(res.data)   
+            
+            this.setState({modal:false})
 
             let {username , id} = res.data[0]
             localStorage.setItem('user' , JSON.stringify({username ,id}))
@@ -74,6 +76,11 @@ export class Header extends Component {
         
         this.username.value = ''
         this.password.value = ''
+
+
+
+
+        
     }
 
     renderNavigation =  () =>{
@@ -151,7 +158,7 @@ export class Header extends Component {
 
             <UncontrolledDropdown>
             <DropdownToggle nav inNavbar style={{color:'white'}}>
-                <img src={Image2} style={{width:50, height:50, borderRadius:100}} alt=""/>
+                <img src={imageuser} style={{width:50, height:50, borderRadius:100}}  alt=""/>
             </DropdownToggle>
 
 
@@ -191,6 +198,7 @@ export class Header extends Component {
                         {/* <Link className='navbar-brand' to="/"> <img src= {Image}  style={{width:200}}  alt="Gaskuy.id"/> </Link> */}
                         <NavbarBrand className='navbar-brand container'>
                             <img  style={{width:200}} src={Image} alt="Gaskuy.id"/>
+
                         </NavbarBrand>
                             <NavbarToggler onClick={this.togglle} />
                                 <Collapse isOpen={this.state.isOpen} navbar>
