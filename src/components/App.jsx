@@ -12,6 +12,7 @@ import PageFourth from './PageFourth'
 import DetailEvent from './DetailEvent'
 import Event from './Event'
 import Cart from './Cart'
+import Profil from './ProfilUser'
 import {keepLogin} from '../action/index' 
 
 export class App extends Component {
@@ -39,6 +40,7 @@ export class App extends Component {
                 <Route path='/event-detail' component ={DetailEvent} />
                 <Route path='/event' component ={Event} />
                 <Route path='/cart' component ={Cart} />
+                <Route path='/profil' component ={Profil} />
             </div>
         </BrowserRouter>
         )

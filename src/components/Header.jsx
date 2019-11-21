@@ -8,7 +8,6 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {sendData} from '../action/index'
 import {onLougoutUser} from '../action/index'
-import imageuser from '../image/user.png'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import {
@@ -63,11 +62,12 @@ export class Header extends Component {
             
             this.setState({modal:false})
 
-            let {username , id} = res.data[0]
-            localStorage.setItem('user' , JSON.stringify({username ,id}))
+            let {username , id,avatar} = res.data[0]
+            localStorage.setItem('user' , JSON.stringify({username ,id,avatar}))
             this.props.sendData(
                 username,
-                id
+                id,
+                avatar
             )
 
         }).catch(err=>{
@@ -158,15 +158,15 @@ export class Header extends Component {
 
             <UncontrolledDropdown>
             <DropdownToggle nav inNavbar style={{color:'white'}}>
-                <img src={imageuser} style={{width:50, height:50, borderRadius:100}}  alt=""/>
+                <img src={'http://localhost:1996/public/uploads/user/' + this.props._avatar} style={{width:50, height:50, borderRadius:100}}  alt=""/>
             </DropdownToggle>
-
+                
 
             <DropdownMenu>
                 <span style={{fontFamily:'arial bold',fontSize:19}} className=''>
                 Hello, {this.props._username}
                 </span>
-                <NavLink tag={Link} to='/profile'>
+                <NavLink tag={Link} to='/profil'>
                 <DropdownItem>Profile</DropdownItem>
                 </NavLink>
                 <NavLink tag={Link} to='/editprofile'>
@@ -231,7 +231,8 @@ export class Header extends Component {
 
 const mapStateToProps = (state) =>{
     return {
-        _username : state.auth.username
+        _username : state.auth.username,
+        _avatar : state.auth.avatar
     } 
     
 }

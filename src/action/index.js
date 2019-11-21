@@ -1,10 +1,11 @@
-export const sendData = (username, id) => {
+export const sendData = (username, id,avatar) => {
     
     return {
         type: "LOGIN_SUCCESS",
         payload: {
             username, 
-            id
+            id,
+            avatar
         }
     }
 }
@@ -25,7 +26,8 @@ export const keepLogin = (user) => {
         type: "LOGIN_SUCCESS",
         payload: {
             id: user.id,
-            username: user.username
+            username: user.username,
+            avatar : user.avatar
         }
     }
 }
