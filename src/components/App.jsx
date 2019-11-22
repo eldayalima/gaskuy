@@ -13,7 +13,9 @@ import DetailEvent from './DetailEvent'
 import Event from './Event'
 import Cart from './Cart'
 import Profil from './ProfilUser'
+import Register2 from './Register2'
 import {keepLogin} from '../action/index' 
+import verification_success from './verification_success'
 
 export class App extends Component {
     state = {
@@ -41,6 +43,8 @@ export class App extends Component {
                 <Route path='/event' component ={Event} />
                 <Route path='/cart' component ={Cart} />
                 <Route path='/profil' component ={Profil} />
+                <Route path='/verification-success/:username' component ={verification_success} />
+                <Route path='/userdetails/:id' component ={Register2} />
             </div>
         </BrowserRouter>
         )

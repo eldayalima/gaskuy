@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from '../config/axios'
+import {Redirect} from 'react-router-dom'
 
 
 export class Register extends Component {
@@ -18,7 +19,7 @@ export class Register extends Component {
         ).then(res=>{
             if (res.data.error) return alert(res.data.error)
             
-            alert('Registrasi Berhasil!!! Enjoyed')
+            alert('Registrasi Berhasil!!! Check email untuk verifikasi akun anda')
 
         }).catch(err=>{
             console.log(err)

@@ -27,7 +27,8 @@ import {
 export class Header extends Component {
     state = {
         isOpen: false,
-        modal : false
+        modal : false,
+        afterLogin : false
     };
 
 
@@ -57,9 +58,8 @@ export class Header extends Component {
             if (res.data.error) return alert(res.data.error)
 
             alert('Login berhasil')   
-            console.log(this.props)   
-            console.log(res.data)   
-            
+
+
             this.setState({modal:false})
 
             let {username , id,avatar} = res.data[0]
@@ -76,6 +76,8 @@ export class Header extends Component {
         
         this.username.value = ''
         this.password.value = ''
+
+        this.setState({afterLogin : true})
 
 
 
@@ -190,10 +192,43 @@ export class Header extends Component {
 
 
     render() {
-        // KONDISI BELUM LOGIN
-
-            return (
+        if(this.state.afterLogin === true){
+            return(
                 <div>
+                    <Navbar light expand="md" className='styleNav fixed-top' style={{backgroundColor:'black'}}>
+                        {/* <Link className='navbar-brand' to="/"> <img src= {Image}  style={{width:200}}  alt="Gaskuy.id"/> </Link> */}
+                        <NavbarBrand className='navbar-brand container'>
+                            <img  style={{width:200}} src={Image} alt="Gaskuy.id"/>
+
+                        </NavbarBrand>
+                            <NavbarToggler onClick={this.togglle} />
+                                <Collapse isOpen={this.state.isOpen} navbar>
+                                
+                                {this.renderNavigation()}
+                                </Collapse>
+                    </Navbar>
+
+
+                    {/* MODAL LOGIN */}
+                    <Modal isOpen={this.state.modal}>
+                        <ModalHeader>
+                            Login 
+                        </ModalHeader>
+                        <ModalBody>
+                            Username  <input className='form-control' ref={(input)=>{this.username = input}} placeholder='Masukan Username' type="text"/>
+                            Password  <input className='form-control' ref={(input)=>{this.password = input}} placeholder='Masukan Password' type="password"/>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={()=>{this.Clicklogin()}}>Login</Button>
+                            <Button color="secondary" onClick={this.login}>Cancel</Button>
+                        </ModalFooter>
+                    </Modal>
+                    <Redirect to='/'  />
+            </div>
+            )
+        }
+        return (
+            <div>
                     <Navbar light expand="md" className='styleNav fixed-top' style={{backgroundColor:'black'}}>
                         {/* <Link className='navbar-brand' to="/"> <img src= {Image}  style={{width:200}}  alt="Gaskuy.id"/> </Link> */}
                         <NavbarBrand className='navbar-brand container'>
