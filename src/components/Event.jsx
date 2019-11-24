@@ -13,6 +13,7 @@ import {
     Col
 } from 'reactstrap'
 
+import MultiSearchBar from 'multi-search-bar'
 import Image from '../image/content2.jpg'
 
 export class Event extends Component {
@@ -55,7 +56,12 @@ export class Event extends Component {
 
         return (
 
+
             <div className='container mt-5 pt-5'>
+                <div>
+                    <MultiSearchBar>
+                    </MultiSearchBar>
+                </div>
                 <div className='row'>
                     {content.map((item)=>(
                     <span className='col-4 mt-3'>

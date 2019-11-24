@@ -30,23 +30,29 @@ export class App extends Component {
     }
 
     render() {
+        if(this.state.check){
+            return (
+            <BrowserRouter>
+                <div>
+                    <Header/>
+                    <Route exact path='/'  component ={PageOne}/>
+                    <Route  exact path='/'  component ={PageTwo}/>
+                    <Route  exact path='/'  component ={PageThree}/>
+                    <Route  exact path='/' component ={PageFourth}/>
+                    <Route  path='/register' component ={Register}/>
+                    <Route path='/event-detail' component ={DetailEvent} />
+                    <Route path='/event' component ={Event} />
+                    <Route path='/cart' component ={Cart} />
+                    <Route path='/profil' component ={Profil} />
+                    <Route path='/verification-success/:username' component ={verification_success} />
+                    <Route path='/userdetails/:id' component ={Register2} />
+                </div>
+            </BrowserRouter>
+            )
+
+        }
         return (
-        <BrowserRouter>
-            <div>
-                <Header/>
-                <Route exact path='/'  component ={PageOne}/>
-                <Route  exact path='/'  component ={PageTwo}/>
-                <Route  exact path='/'  component ={PageThree}/>
-                <Route  exact path='/' component ={PageFourth}/>
-                <Route  path='/register' component ={Register}/>
-                <Route path='/event-detail' component ={DetailEvent} />
-                <Route path='/event' component ={Event} />
-                <Route path='/cart' component ={Cart} />
-                <Route path='/profil' component ={Profil} />
-                <Route path='/verification-success/:username' component ={verification_success} />
-                <Route path='/userdetails/:id' component ={Register2} />
-            </div>
-        </BrowserRouter>
+            <h1>hayo kenapa</h1>
         )
     }
 }

@@ -1,3 +1,5 @@
+import {Redirect} from 'react-router-dom'
+
 export const sendData = (username, id,avatar) => {
     
     return {
