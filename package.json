@@ -23,7 +23,8 @@
     "react-video-cover": "^1.2.2",
     "reactstrap": "^8.1.1",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",

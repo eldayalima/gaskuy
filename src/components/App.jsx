@@ -16,6 +16,7 @@ import Profil from './ProfilUser'
 import Register2 from './Register2'
 import {keepLogin} from '../action/index' 
 import verification_success from './verification_success'
+import AppAdmin from './admin/AdminPage'
 
 export class App extends Component {
     state = {
@@ -46,15 +47,20 @@ export class App extends Component {
                     <Route path='/profil' component ={Profil} />
                     <Route path='/verification-success/:username' component ={verification_success} />
                     <Route path='/userdetails/:id' component ={Register2} />
+                    <Route path='/admin' component ={AppAdmin} />
+                    
                 </div>
             </BrowserRouter>
             )
 
         }
         return (
-            <h1>hayo kenapa</h1>
+            <h1>Loading...</h1>
         )
     }
 }
+
+
+
 
 export default connect(null,{keepLogin}) (App)

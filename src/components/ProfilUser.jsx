@@ -9,7 +9,8 @@ import { isNull } from 'util';
 
 export class ProfilUser extends Component {
     state = {
-        profil : null
+        profil : null,
+        updated : false
     }
 
     componentDidMount() {
@@ -45,11 +46,26 @@ export class ProfilUser extends Component {
         axios.patch(`/user/profil/${this.props._username}`, formData)
         .then((res)=>{
             console.log(res)
+            this.setState({updated:true})
             alert('Profil Berhasil diperbaharui')
         }).catch((err)=>{
             alert(err)
             
         })
+    }
+
+    componentDidUpdate(){
+        if(this.state.updated){
+            axios.get(`/user/profil/${this.props._username}`)
+        .then((res)=>{
+            this.setState({profil : res.data,updated :false})
+            console.log(this.state.profil)
+
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        }
     }
 
 
