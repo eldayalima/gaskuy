@@ -1,52 +1,30 @@
 import React, { Component } from 'react'
-import Slider from 'react-animated-slider'
-import 'react-animated-slider/build/horizontal.css'
 import {Link} from 'react-router-dom'
 
 
-import Image1 from '../image/pageOne.jpg'
-import Image2 from '../image/content2.jpg'
-import Image3 from '../image/content3.jpg'
-
-
 export class PageOne extends Component {
-    
-
-
     render() {
-        var content =[
-            {
-                image :`${Image1}`,
-                title : 'Your Happiness Solutions' ,
-
-            },
-
-            {
-                image :`${Image2}`,
-                title :'Yakali ga Kuy..',
-            },
-
-            {
-                image :`${Image3}`,
-                title :'Hai',
-            },
-        ]
-
-
         return (
-            <div className='background-page my-5 col-12'>
-                <Slider autoplay={1000} >
-                    {content.map((item) => (
-                    <div style={{ background: `url('${item.image}') no-repeat center center`, backgroundSize:'cover'}}>
-                        <div className='text-center mx-auto mt-5 d-block mb-5'>
-                            <span className='tulisan' style={{fontSize:50, color:'white'}}>{item.title}</span>
-                            <button className='btn btn-success mt-5 d-block mx-auto' style={{width:250,height:50}}>
-                                Click Here 
-                            </button>
-                        </div>
-                    </div>
-                    ))}
-                </Slider>
+            <div className='page-one '>
+                <div className='text-center text-justify tulisan-page-one' >
+                    <h1 style={{paddingTop:200,color:'white', fontWeight:'bolder',fontSize:50,fontWeight:900, letterSpacing:'4px',fontWeight:'bolder'}}>
+                        JELAJAHI EVENT DENGAN 1 SENTUHAN
+                    </h1>
+                    <h1 className='tulisan-page-one' style={{color:'white',fontWeight:900}}>
+                        Bersama Gaskuy
+                    </h1>
+                    <h4 style={{color:'white',marginTop:40,fontWeight:900}}>
+                        Your Event Partner and Hapiness Solutions
+                    </h4>
+                    <Link to='/event'>
+                    <button className='btn btn-outline-success' style={{width:200, height:50,marginTop:70,color:'white',borderColor:'white'}}>
+                        <h4>
+                        Find Event
+                        </h4>
+                        </button>
+                    </Link>
+                </div>
+                
             </div>
         )
     }

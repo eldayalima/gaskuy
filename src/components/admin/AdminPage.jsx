@@ -9,7 +9,7 @@ export class AdminPage extends Component {
         return (
             <div className='container-fluid'>
                 <div className='row mt-4'>
-                    <div className='col-2 sidenav' style={{height:'100vh'}}>
+                    <div className='sidenav' style={{height:'100vh'}}>
                         <Link to ='/admin/info'>
                         <button className='btn btn-success mx-auto mt-5' style={{width:'100%'}}>Info User</button>
                         </Link>
@@ -20,7 +20,7 @@ export class AdminPage extends Component {
                         <button className='btn btn-success mx-auto mt-1' style={{width:'100%'}}>Transaksi</button>
                         </Link>
                     </div>
-                    <div className='col-10'>
+                    <div className=' samping-admin'>
                     {/* <Route exact path={this.props.match.path} component={AdminPage} /> */}
                     <Route path={this.props.match.path + '/info'} component={InfoUser} />
                     <Route path={this.props.match.path + '/event'} component={EventAdmin} />

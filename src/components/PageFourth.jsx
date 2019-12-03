@@ -32,37 +32,38 @@ export class PageFourth extends Component {
         ]
 
         return (
-        <div className='container mb-5'>
-            <div className='bg-page-fourth1 mt-5'>
-                <div className='bg-fourth'></div>
-                    <div className='bg-fourth-container'>
+    <div>
+        <div className='container'>
+                <h1 className='tulisan-page-one text-center'>
+                    Our Testimonies
+                </h1>
                         <div className='row'>
-                            <div className='col-md-3'>
+                            <div className='col-12'>
                                 
                             </div>
                             <Slider autoplay={2000}>
                                 {content.map((item)=>(
                                     <div>
-                                    <img src={item.gambar} className='gambar-tengah mt-5'  alt=""/>
-                                    <blockquote className="blockquote text-center mx-auto" >
-                                <h3>{item.komentar}</h3>
-                                    <footer className="blockquote-footer">
-                                    {item.nama} <cite>{item.umur}</cite>
-                                    </footer>
-                                </blockquote>
+                                            <img src={item.gambar} className='gambar-tengah'  alt=""/>
+                                            <blockquote className="blockquote text-center mx-auto" >
+                                        <h3>{item.komentar}</h3>
+                                            <footer className="blockquote-footer">
+                                            {item.nama} <cite>{item.umur}</cite>
+                                            </footer>
+                                        </blockquote>
                                     </div>
-
                                 ))}
-
                             </Slider>
-                            
-                            <div className='col-md-9'>
-                                
-                            </div>
+                        
                         </div>
                     </div> 
-            </div>
+                    <div className='col-12 full-width' style={{backgroundColor:'black',height:35}}>
+                            <h5 className='text-center' style={{color:'grey'}}>
+                                Powered by Dlehnisme 2019
+                            </h5>
+                    </div>
         </div>
+
 
         )
     }

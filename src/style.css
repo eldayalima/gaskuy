@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
+.tulisan-page-one{
+    font-family: 'Raleway';
+    z-index: 9;
+    position: relative;
+    visibility: visible;
+    opacity: 1;
+}
+
 .bgPageOne{
     background-image: url('./image/pageOne.jpg');
     background-color: black;
@@ -30,15 +40,15 @@
 
 .styleNav{
     box-shadow: 0 10px 2px -2px rgba(0,0,0,.2);
+    background-color: transparent;
     
     
 }
 .background-page{
-    background: black;
+    background:#F5F5F5;
     height: 100vh;
-    width: 100vh;
+    width: 100%;
     background-size: cover;
-    padding-top: 5%;
 }
 
 
@@ -98,10 +108,10 @@
     background-color: orange;
 }
 .bg-fourth-container{
-    background: whitesmoke;
-    opacity: 0.8;
+    background: black;
+    opacity: 0.5;
     width: 100% !important;
-    height: 50vh;
+    height: 100vh;
     position: relative;
 }
 
@@ -135,11 +145,11 @@ body {
   }
   
   .sidenav {
-    height: 100vh;
-    width: 100%;
+    height: 100%;
+    width: 200px;
     position: fixed;
     z-index: 1;
-    top: 0;
+    top: 100;
     left: 0;
     background-color: grey;
     overflow-x: hidden;
@@ -168,4 +178,41 @@ body {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
-  
+
+  .page-one{
+    background: url('./image/Untitled-12.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* position: relative; */
+    height:100vh;
+    top: 0;
+    bottom: 0;
+    z-index: -10;
+}
+  .bg-one-cover{
+    background: grey;
+    opacity: 0.8;
+    width: 100% !important;
+    height: 50vh;
+    position: relative;
+}
+.bg-search-bar{
+    background: url('./image/content5.jpg');
+    background-size: cover;
+    height: 50vh;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    /* position: relative; */
+    /* height:100vh; */
+    top: 0;
+    bottom: 0;
+    z-index: -10;
+  }
+.samping-admin{
+    margin-left: 220px;
+}

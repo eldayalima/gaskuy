@@ -37,11 +37,11 @@ export class App extends Component {
                 <div>
                     <Header/>
                     <Route exact path='/'  component ={PageOne}/>
-                    <Route  exact path='/'  component ={PageTwo}/>
+                    {/* <Route  exact path='/'  component ={PageTwo}/> */}
                     <Route  exact path='/'  component ={PageThree}/>
                     <Route  exact path='/' component ={PageFourth}/>
                     <Route  path='/register' component ={Register}/>
-                    <Route path='/event-detail' component ={DetailEvent} />
+                    <Route path='/event-detail/:idEvent' component ={DetailEvent} />
                     <Route path='/event' component ={Event} />
                     <Route path='/cart' component ={Cart} />
                     <Route path='/profil' component ={Profil} />

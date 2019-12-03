@@ -1,27 +1,99 @@
 import React, { Component } from 'react'
 
+
 export class PageThree extends Component {
     render() {
         return (
-                <div className='container'>
-            <div className='bg-page-three'>
-                    <div className='row'>
-                        <div className='col-12'>
-                            <span className=' p-5' style={{color:'white'}}>
-                                <h1 className='tulisan' style={{paddingTop:150}}>
-                                    Apa itu Gaskuy ??
-                                </h1>
-                                <p style={{paddingTop:30}}>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit illum omnis labore! Magnam, dolores? Magnam ea hic ut harum praesentium incidunt a corrupti laudantium. Eum quia, similique cupiditate molestiae eveniet nostrum officia commodi quasi, ipsum, deserunt illo dolorum reiciendis recusandae!
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime explicabo, minus, aut hic odit quaerat quam vero quis nihil voluptatibus fugit dicta pariatur distinctio praesentium possimus quibusdam, alias eius adipisci.
-                                </p>
-                            </span>
+            <div className='background-page'>
+            <div className='container'>
+                <h1 className='tulisan-page-one text-center'>
+                    Event Categories
+                </h1>
+                <div className='row'>
+                    <div className='col-11 row ml-auto'>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-music fa-3x" ></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Music
+                                </h4>
+                                </button>
                         </div>
-
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-book-open fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Book
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                            <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-university fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Student
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-globe fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Etnic
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-users fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Seminar
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-utensils fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Food And Drink
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-palette fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Arts
+                                </h4>
+                                </button>
+                        </div>
+                        <div className='col-3 mt-5'>
+                                <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
+                                <div style={{color:'orange'}}>
+                                <i class="fas fa-smile-wink fa-3x"></i>
+                                </div>
+                                <h4 className='pt-3'>
+                                    Others
+                                </h4>
+                                </button>
+                        </div>
                     </div>
-
                 </div>
-                
+            </div>
             </div>
         )
     }
