@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
+
 
 
 export class PageThree extends Component {
@@ -12,6 +14,7 @@ export class PageThree extends Component {
                 <div className='row'>
                     <div className='col-11 row ml-auto'>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Music'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-music fa-3x" ></i>
@@ -20,8 +23,10 @@ export class PageThree extends Component {
                                     Music
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Book'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-book-open fa-3x"></i>
@@ -30,8 +35,10 @@ export class PageThree extends Component {
                                     Book
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Student'>
                             <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-university fa-3x"></i>
@@ -40,8 +47,10 @@ export class PageThree extends Component {
                                     Student
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Culture / Etnic'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-globe fa-3x"></i>
@@ -50,8 +59,10 @@ export class PageThree extends Component {
                                     Etnic
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Seminar'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-users fa-3x"></i>
@@ -60,8 +71,10 @@ export class PageThree extends Component {
                                     Seminar
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Food And Drink'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-utensils fa-3x"></i>
@@ -70,8 +83,10 @@ export class PageThree extends Component {
                                     Food And Drink
                                 </h4>
                                 </button>
+                                </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Arts'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-palette fa-3x"></i>
@@ -80,8 +95,10 @@ export class PageThree extends Component {
                                     Arts
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                         <div className='col-3 mt-5'>
+                        <Link to='/event?category=Others'>
                                 <button className='btn' style={{borderRadius:5,borderColor:'grey',width:150,height:150}}>
                                 <div style={{color:'orange'}}>
                                 <i class="fas fa-smile-wink fa-3x"></i>
@@ -90,6 +107,7 @@ export class PageThree extends Component {
                                     Others
                                 </h4>
                                 </button>
+                        </Link>
                         </div>
                     </div>
                 </div>
