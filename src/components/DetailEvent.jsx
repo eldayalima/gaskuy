@@ -29,7 +29,7 @@ export class DetailEvent extends Component {
     state = {
         rating : 3,
         event : null,
-        order : 0
+        order : 1,
     }
     onClickPlus =()=>{
         this.setState({
@@ -53,25 +53,59 @@ export class DetailEvent extends Component {
         let tanggal = new Date()
         tanggal = moment(tanggal).format('YYYY-MM-DD HH:mm:ss')
         // console.log(tanggal)
-        
-        axios.post(`/cart`,
-        {
-            id_user : this.props._id ,
-            id_event : id,
-            tanggal_pembelian : tanggal,
-            qty : this.state.order,
-        }
-        ).then((res)=>{
-            if (res.data.error) return console.log(res.data.error)
-            alert('Berhasil ditambahkan ke Cart Anda')
-        }).catch((err)=>{
+        let qtyUser = this.state.order
+
+        axios.get(`/cart/${this.props._id}/${id}`)
+        .then((res)=>{
+            console.log(res.data)
+            if(res.data.length === 0){
+                axios.post(`/cart`,
+                {
+                    id_user : this.props._id ,
+                    id_event : id,
+                    tanggal_pembelian : tanggal,
+                    qty : qtyUser,
+                }
+                ).then((res)=>{
+                    if (res.data.error) return console.log(res.data.error)
+                    console.log(res.data)
+                    alert('Berhasil ditambahkan ke Cart Anda')
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            }else{
+                qtyUser = parseInt(res.data[0].qty) + parseInt(qtyUser)
+                // console.log(qtyUser)
+                var idcart = res.data[0].id
+                console.log(res.data[0].id)
+
+                axios.patch(`/cart/${idcart}`,
+                {qty : qtyUser}
+                )
+                .then(()=>{
+                    alert('Berhasil di tambagkan ke Cart Anda')
+                }).catch((err)=>{
+                    console.log(err)
+                })
+
+
+            }
+            // if(this.state.cart)
+        })
+        .catch((err)=>{
             console.log(err)
         })
 
+
+
+
+
+        
     }
 
 
     getData = () =>{
+
         var path = this.props.location.pathname
         path = path.split('/')
         var id = path[2]

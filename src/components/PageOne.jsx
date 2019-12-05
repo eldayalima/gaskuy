@@ -16,7 +16,7 @@ export class PageOne extends Component {
                     <h4 style={{color:'white',marginTop:40,fontWeight:900}}>
                         Your Event Partner and Hapiness Solutions
                     </h4>
-                    <Link to='/event'>
+                    <Link to='/event?category=all'>
                     <button className='btn btn-outline-success' style={{width:200, height:50,marginTop:70,color:'white',borderColor:'white'}}>
                         <h4>
                         Find Event

@@ -151,7 +151,7 @@ export class Header extends Component {
                 </NavItem>
 
                 <NavItem style={{marginRight:50, marginLeft:30,marginTop:10}}>
-                    <NavLink href="/event">
+                    <NavLink href="/event?category=all">
                     <p style={{color:'white'}}>
                             Event
                         </p>
@@ -171,8 +171,8 @@ export class Header extends Component {
                 <NavLink tag={Link} to='/profil'>
                 <DropdownItem>Profile</DropdownItem>
                 </NavLink>
-                <NavLink tag={Link} to='/editprofile'>
-                <DropdownItem>Edit Profile</DropdownItem>
+                <NavLink tag={Link} to='/cart'>
+                <DropdownItem>cart</DropdownItem>
                 </NavLink>
 
                 <DropdownItem divider/>
