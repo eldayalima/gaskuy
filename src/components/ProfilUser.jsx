@@ -1,29 +1,123 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
-import {Table} from 'reactstrap'
+import {Table, Spinner, ModalHeader,ModalBody,ModalFooter,Modal } from 'reactstrap'
 import {connect} from 'react-redux'
 import axios from '../config/axios'
 import { isNull } from 'util';
+import * as moment from 'moment';
 
 
 export class ProfilUser extends Component {
     state = {
         profil : null,
-        updated : false
+        updated : false,
+        transaksi : null,
+        detail_transaksi : null,
+        modal : false
     }
-
+    modalDetail = (value) =>{
+        axios.get(`/user/transaksi-detail/${value}`)
+                .then((res)=>{
+                    this.setState({detail_transaksi : res.data})
+                    // console.log(this.state.detail_transaksi)
+                    this.setState(e=>({
+                        modal : !e.modal
+                    }))
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
+       
+    }
     componentDidMount() {
         axios.get(`/user/profil/${this.props._username}`)
         .then((res)=>{
             this.setState({profil : res.data})
-            console.log(this.state.profil)
+            // console.log(this.state.profil)
 
         })
         .catch((err)=>{
             console.log(err)
         })
+        axios.get(`/user/history-transaksi/${this.props._id}`)
+        .then((res)=>{
+            this.setState({transaksi : res.data})
+            console.log(this.state.transaksi)
+            // console.log(this.state.transaksi[0].idpayment)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        
     }
+
+    renderTransaksi = () =>{
+        if(this.state.transaksi === null){
+            return(
+                <div style={{marginTop:'40vh'}} className='d-flex justify-content-center'>
+                    <Spinner type="grow" color="primary" />
+                    <Spinner type="grow" color="secondary" />
+                    <Spinner type="grow" color="success" />
+                    <Spinner type="grow" color="danger" />
+                    <Spinner type="grow" color="warning" />
+                    <Spinner type="grow" color="info" />
+                    <Spinner type="grow" color="light" />
+                    <Spinner type="grow" color="dark" />
+                </div>
+            )
+        }
+        let transaksi = this.state.transaksi.map((val)=>{
+            var tanggal = moment(val.tanggal_pembelian).format('LLLL')
+            var total = val.grand_total
+            var kuantiti = val.qty
+            var status = val.status
+            return(
+                <tr>
+                    <td>1</td>
+                    <td>{tanggal} </td>
+                    <td>{total} </td>
+                    <td>{kuantiti} </td>
+                    <td>{status ? status === 0 : <mark color='black'>Pending</mark>} </td>
+                    <button className='btn btn-primary' onClick={()=>{this.modalDetail(val.idpayment)}}>Detail</button>
+                </tr>
+            )
+        })
+        return transaksi
+    }
+
+    renderDetail = () =>{
+        if(this.state.detail_transaksi === null){
+            return(
+                <div style={{marginTop:'40vh'}} className='d-flex justify-content-center'>
+                    <Spinner type="grow" color="primary" />
+                    <Spinner type="grow" color="secondary" />
+                    <Spinner type="grow" color="success" />
+                    <Spinner type="grow" color="danger" />
+                    <Spinner type="grow" color="warning" />
+                    <Spinner type="grow" color="info" />
+                    <Spinner type="grow" color="light" />
+                    <Spinner type="grow" color="dark" />
+                </div>
+            )
+        }
+        let detail = this.state.detail_transaksi.map((val)=>{
+            return(
+                <tr>
+                    <td>{val.nama_event} </td>
+                    <td>{moment(val.tanggal).format('LLLL')} </td>
+                    <td>{val.harga} </td>
+                    <td>{val.qty} </td>
+                    <td>{val.harga * val.qty} </td>
+                    <td>{val.kota} </td>
+                </tr>
+            )
+        })
+        return detail
+    
+        
+    }
+
 
     updateProfile = () =>{
         let formData = new FormData()
@@ -154,7 +248,28 @@ export class ProfilUser extends Component {
                     </TabPanel>
 
                     <TabPanel>
-                    <h2>Any content 2</h2>
+                    <h2 className='text-center'>Riwayat Transaksi</h2>
+                    <div className='row'>
+                    <div className='col-12'>
+                    <Table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Total Harga</th>
+                                <th>Nama Pembeli</th>
+                                <th>Kuantiti</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.renderTransaksi()}
+                        </tbody>
+                    </table>
+                    </Table>
+                    </div>
+                    </div>
                     </TabPanel>
 
                     <TabPanel>
@@ -223,6 +338,34 @@ export class ProfilUser extends Component {
                         </div>
                     </TabPanel>
                 </Tabs>
+
+                <Modal isOpen={this.state.modal} size='lg'>
+                    <ModalHeader>
+                        Detail Transaksi Anda
+                    </ModalHeader>
+                    <ModalBody>
+                        <Table>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nama Event</th>
+                                        <th>Tanggal Penyelenggaraan</th>
+                                        <th>Harga</th>
+                                        <th>Kuantiti</th>
+                                        <th>Total Harga</th>
+                                        <th>Kota</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.renderDetail()}
+                                </tbody>
+                            </table>
+                        </Table>
+                    </ModalBody>
+                    <ModalFooter>
+                        <button className='btn btn-warning' onClick={()=>{this.setState({modal : false})}}>Close</button>
+                    </ModalFooter>
+                </Modal>
             </div>
         )
     }else{

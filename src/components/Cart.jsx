@@ -16,20 +16,61 @@ import * as moment from 'moment'
 export class Cart extends Component {
     state= {
         modal: false,
-        cart : null
+        cart : null,
+        afterCheckOut : false
     }
     modalBayar =() =>{
         this.setState( prevstate => ({
             modal : !prevstate.modal,
         }))
     }
+    checkOut = () =>{
+        var tanggal_pembelian = Date.now()
+        tanggal_pembelian = moment(tanggal_pembelian).format('YYYY-MM-DD HH:mm:ss')
+        console.log(tanggal_pembelian)
+        let grand_total = this.totalHargaCart()
+        console.log(grand_total)
+        let idUser = this.props._id
+        console.log(idUser)
+        axios.post(`/user/transaksi/${this.props._id}`,
+        {
+            tanggal_pembelian : tanggal_pembelian,
+            grand_total : grand_total,
+            id_users : idUser
+        }
+        )
+        .then((res)=>{
+            if(res.data.error) return console.log(res.data.error)
+            alert('Berhasil Di CheckOut')
+            this.setState({modal : false, afterCheckOut : true})
+            // console.log(res.data)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    componentDidUpdate(){
+        if(this.state.afterCheckOut){
+            axios.get(`/cart/${this.props._id}`)
+        .then((res)=>{
+            if (res.data.error) return console.log(res.data.error)
+            this.setState({cart : res.data, afterCheckOut : true})
+            // console.log(this.state.cart[0].tanggal)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        }
+    }
+
 
     componentDidMount(){
         axios.get(`/cart/${this.props._id}`)
         .then((res)=>{
             if (res.data.error) return console.log(res.data.error)
             this.setState({cart : res.data})
-            console.log(this.state.cart[0].tanggal)
+            // console.log(this.state.cart[0].tanggal)
         })
         .catch((err)=>{
             console.log(err)
@@ -67,7 +108,9 @@ export class Cart extends Component {
             let total = cart.harga * cart.qty
             totalSemua += total
         })
-        let totalSemuaRP = Intl.NumberFormat().format(totalSemua).replace(/,/g, '.')
+        // this.setState({total : e})
+        // let totalSemuaRP = Intl.NumberFormat().format(totalSemua).replace(/,/g, '.')
+        let totalSemuaRP = totalSemua
         return totalSemuaRP
     }
 
@@ -117,10 +160,10 @@ export class Cart extends Component {
                                     <td></td>
                                     <td>Jumlah yang harus dibayar</td>
                                     <td></td>
-                                    <td>{ 'Rp ' + this.totalHargaCart()}</td>
+                                    <td>{ 'Rp ' + Intl.NumberFormat().format(this.totalHargaCart()).replace(/,/g, '.')}</td>
                                 </tbody>
                             </Table>
-                            <button className='btn btn-warning' onClick={()=>{this.modalBayar()}}>Bayar</button>
+                            <button className='btn btn-warning' onClick={this.modalBayar}>Bayar</button>
                             <button className='btn btn-danger ml-3'>Hapus</button>
                             <Modal isOpen={this.state.modal}>
                                 <ModalHeader>
@@ -135,8 +178,8 @@ export class Cart extends Component {
                                     Upload Bukti Pembayaran Anda<input className='form-control' placeholder='Masukan Password' type="file"/>
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button color="primary" onClick={()=>{}}>Konfirmasi</Button>
-                                    <Button color="secondary" onClick={this.modalBayar}>Cancel</Button>
+                                    <Button color="primary" onClick={this.checkOut}>Konfirmasi</Button>
+                                    <Button color="secondary" onClick={()=>this.setState({modal : false})}>Cancel</Button>
                                 </ModalFooter>
                             </Modal>
                         </div>

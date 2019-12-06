@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import axios from '../../config/axios';
-import { Spinner,Table } from 'reactstrap';
+import { 
+    Spinner,
+    Table,
+    Modal, 
+    ModalHeader, 
+    ModalBody, 
+    ModalFooter } from 'reactstrap';
 import DateTimePicker from 'react-datetime-picker'
 import * as moment from 'moment'
 
@@ -35,8 +41,8 @@ export class EventAdmin extends Component {
                     <td>{event.id} </td>
                     <td> {event.nama_event} </td>
                     <td> {event.harga} </td>
-                    <td> {event.tanggal} </td>
-                    <td> {event.categories_id} </td>
+                    <td> {moment(event.tanggal).format('LLLL')} </td>
+                    <td> {event.nama} </td>
                     <td> {event.lokasi_latitude} + {event.lokasi_longitude} </td>
                     <td> 
                         {event.deskripsi.length > 50 ? event.deskripsi.slice(0,50) + '.......' : event.deskripsi} 
@@ -329,6 +335,7 @@ export class EventAdmin extends Component {
                 </TabPanel>
             </Tabs>
             
+
         </div>
         )
     }
