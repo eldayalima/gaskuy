@@ -1,13 +1,14 @@
 import {Redirect} from 'react-router-dom'
 
-export const sendData = (username, id,avatar) => {
+export const sendData = (username, id,avatar,role) => {
     
     return {
         type: "LOGIN_SUCCESS",
         payload: {
             username, 
             id,
-            avatar
+            avatar,
+            role
         }
     }
 }
@@ -29,7 +30,8 @@ export const keepLogin = (user) => {
         payload: {
             id: user.id,
             username: user.username,
-            avatar : user.avatar
+            avatar : user.avatar,
+            role : user.role
         }
     }
 }

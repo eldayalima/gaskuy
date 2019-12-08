@@ -3,9 +3,18 @@ import {Route, Link} from 'react-router-dom'
 import InfoUser from './InfoUser'
 import EventAdmin from './EventAdmin'
 import Transaksi from './Transaksi'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
+
+
 
 export class AdminPage extends Component {
     render() {
+        if(!this.props._username || this.props._role === 0){
+            return(
+                <Redirect to ='/'/>
+            )
+        }
         return (
             <div className='container-fluid'>
                 <div className='row mt-4'>
@@ -32,5 +41,12 @@ export class AdminPage extends Component {
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        _username : state.auth.username,
+        _role : state.auth.role
+    } 
+    
+}
 
-export default AdminPage
+export default connect(mapStateToProps) (AdminPage)

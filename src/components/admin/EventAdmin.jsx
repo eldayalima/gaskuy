@@ -19,10 +19,43 @@ export class EventAdmin extends Component {
         event : null,
         afterEvent : false,
         afterKategories : false,
-        date : new Date
+        date : new Date,
+        modal : false,
+        editEvent : '',
+        deleteEvent : null
+    }
+    
+    deleteEvent =(id)=>{
+        axios.patch(`/admin/event/delete/${id}`)
+        .then((res)=>{
+            alert('Event Berhasil dihapus')
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
 
-    
+
+    modalEdit = (id) =>{
+        axios.get(`/event/${id}`)
+        .then((res)=>{
+            this.setState(prevstate =>({
+                modal : !prevstate.modal,
+                editEvent : res.data[0]
+            }))
+            console.log(this.state.editEvent)
+
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+    // renderEditModal = ()=>{
+    //         return(
+                
+    //         )
+    // }
+
     tanggal = date => this.setState({ date })
 
 
@@ -48,16 +81,46 @@ export class EventAdmin extends Component {
                         {event.deskripsi.length > 50 ? event.deskripsi.slice(0,50) + '.......' : event.deskripsi} 
                     </td>
                     <td>
-                        <button className='btn btn-warning'>Edit</button>
+                        <button onClick={()=> {this.modalEdit(event.id)}} className='btn btn-warning'>Edit</button>
                     </td>
                     <td>
-                        <button className='btn btn-danger'>Hapus</button>
+                        <button onClick={()=>{this.deleteEvent(event.id)}} className='btn btn-danger'>Hapus</button>
                     </td>
                 </tr>
             )
         })
         return events
     }
+
+    renderDeleteEvent = () =>{
+        if(this.state.deleteEvent === null){
+            return(
+                <div style={{marginTop:'40vh'}} className='d-flex justify-content-center'>
+                    <Spinner type="grow" color="primary" />
+                    <Spinner type="grow" color="secondary" />
+                </div>
+            )
+        }
+        let eventdelete = this.state.deleteEvent.map((event)=>{
+            return(
+                <tr>
+                    <td>{event.id} </td>
+                    <td> {event.nama_event} </td>
+                    <td> {event.harga} </td>
+                    <td> {moment(event.tanggal).format('LLLL')} </td>
+                    <td> {event.nama} </td>
+                    <td> {event.lokasi_latitude} + {event.lokasi_longitude} </td>
+                    <td> 
+                        {event.deskripsi.length > 50 ? event.deskripsi.slice(0,50) + '.......' : event.deskripsi} 
+                    </td>
+                    
+                </tr>
+            )
+        })
+        return eventdelete
+    }
+
+
     componentDidMount(){
         axios.get(`/admin/kategori`)
         .then((res)=>{
@@ -72,6 +135,14 @@ export class EventAdmin extends Component {
         .then((res)=>{
             this.setState({event : res.data})
             // console.log(this.state.event)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+        axios.get('/admin/events/deleted')
+        .then((res)=>{
+            this.setState({deleteEvent : res.data})
+            console.log(this.state.deleteEvent)
         })
         .catch((err)=>{
             console.log(err)
@@ -102,6 +173,38 @@ export class EventAdmin extends Component {
         }
     }
 
+    updateEvent =(id)=>{
+        console.log(id)
+        let formData = new FormData()
+
+        let _nama = this.nama_event_edit.value
+        let _harga = Number(this.harga_edit.value)
+        let _longit = this.longitude_edit.value
+        let _latit = this.latitude_edit.value
+        let _tanggal = moment(this.state.date).format('YYYY-MM-DD HH:mm:ss')
+        let _categories = this.categories_edit.value
+        let _deskripsi = this.deskripsi_edit.value
+        let _kota = this.kota_edit.value
+        let foto_event = this.foto_event_edit.files[0]
+        
+        if(_nama) formData.append('nama_event' ,_nama)
+        if(_harga) formData.append('harga', _harga)
+        if(_longit) formData.append('lokasi_longitude', _longit)
+        if(_latit) formData.append('lokasi_latitude' , _latit)
+        if(_tanggal) formData.append('tanggal', _tanggal)
+        if(_categories) formData.append('categories_id' , _categories)
+        if(_deskripsi) formData.append('deskripsi' ,_deskripsi)
+        if(_kota) formData.append('kota' , _kota)
+        if(foto_event) formData.append('foto_event' ,foto_event)
+
+        axios.patch(`/admin/edit/event/${id}`, formData)
+        .then((res)=>{
+            alert('Event Berhasil Diperbaharui')
+        }).catch((err)=>{
+            console.log(err)
+        })
+
+    }
 
 
     optionKategori =()=>{
@@ -197,7 +300,7 @@ export class EventAdmin extends Component {
 
 
     render() {
-        if(this.state.categories === null){
+        if(this.state.categories === null ){
             return(
                 <div style={{marginTop:'40vh'}} className='d-flex justify-content-center'>
                     <Spinner type="grow" color="primary" />
@@ -218,6 +321,7 @@ export class EventAdmin extends Component {
                     <Tab>Tambah Kategori dan Event</Tab>
                     <Tab>Manage Event</Tab>
                     <Tab>Manage Kategori</Tab>
+                    <Tab>Event Kadaluarsa</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -333,8 +437,88 @@ export class EventAdmin extends Component {
                         </tbody>
                     </Table>
                 </TabPanel>
+                <TabPanel>
+                <Table>
+                    <thead>
+                        <tr>
+                            <th>ID Event</th>
+                            <th>Nama Event</th>
+                            <th>Harga Event</th>
+                            <th>Tanggal</th>
+                            <th>Kategori</th>
+                            <th>Lokasi</th>
+                            <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderDeleteEvent()}
+                    </tbody>             
+                </Table>
+                </TabPanel>
             </Tabs>
             
+            <Modal isOpen={ this.state.modal}>
+                <ModalHeader>
+                    Edit Transaksi
+                </ModalHeader>
+                <ModalBody>
+                {/* {()=> this.renderEditModal()} */}
+                <form className='form-group' >
+                    <div className='card-title'>
+                        <h5>Nama Event</h5>
+                    </div>
+                    <input placeholder={this.state.editEvent.nama_event} ref={ (input) => {this.nama_event_edit = input} } className='form-control' type='text'/>
+
+                    <div className='card-title'>
+                        <h5>Kota</h5>
+                    </div>
+                    <input placeholder={this.state.editEvent.kota} ref={ (input) => {this.kota_edit = input} } className='form-control' type='text'/>
+
+                    <div className='card-title'>
+                        <h5>Harga</h5>
+                    </div>
+                    <input placeholder={this.state.editEvent.harga} ref={ (input) => {this.harga_edit = input} } className='form-control' type='text'/>
+
+                    <div className='card-title'>
+                        <h5>Categories</h5>
+                    </div>
+                    <select ref={(input)=>{this.categories_edit = input}} className='form-control' value={this.state.value} onChange={(e)=>{this.setState({value : e.target.value})}}>
+                        <option value=''>--Pilih Kategori Event--</option>
+                        {this.optionKategori()}
+
+                    </select>                        
+                    <div className='card-title'>
+                        <h5>Latitude</h5>
+                    </div>
+                    <input placeholder={this.state.editEvent.lokasi_latitude} ref={ (input) => {this.latitude_edit = input} } className='form-control' type='text'/>
+
+                    <div className='card-title'>
+                        <h5>Longitude</h5>
+                    </div>
+                    <input placeholder={this.state.editEvent.lokasi_longitude} ref={ (input) => {this.longitude_edit = input} } className='form-control' type='text'/>
+
+                    <div className='card-title'>
+                        <h5>Tanggal Event</h5>
+                    </div>
+                    <DateTimePicker
+                        onChange={this.tanggal}
+                        value={this.state.date}/>
+                    <div className='card-title'>
+                        <h5>Foto Event</h5>
+                    </div>
+                    <input ref={ (input) => {this.foto_event_edit = input} } className='form-control' type='file'/>
+
+                    <div className='card-title'>
+                        <h5>Deskripsi</h5>
+                        <textarea placeholder={this.state.editEvent.deskripsi} className='form-control' rows='5' id='comment' ref={ (input) => {this.deskripsi_edit = input} }></textarea>
+                    </div>
+                </form>
+                </ModalBody>
+                <ModalFooter>
+                    <button onClick={()=>{this.updateEvent(this.state.editEvent.id)}} className='btn btn-success'>Perbaharui</button>
+                    <button className='btn btn-warning' onClick={()=> this.setState({modal : false})}>Cancel</button>
+                </ModalFooter>
+            </Modal>
 
         </div>
         )

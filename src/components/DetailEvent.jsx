@@ -22,6 +22,8 @@ import {
 import axios from '../config/axios'
 import {connect} from 'react-redux'
 import * as moment from 'moment'
+import {Redirect} from 'react-router-dom'
+
 
 
 
@@ -46,17 +48,21 @@ export class DetailEvent extends Component {
     }
 
     addToCart = () =>{
-        var path = this.props.location.pathname
-        path = path.split('/')
-        var id = path[2]
+        if(!this.props._username){
+            alert('Silahkan Login Terlebih Dahulu')
+        }else{
 
-        let tanggal = new Date()
-        tanggal = moment(tanggal).format('YYYY-MM-DD HH:mm:ss')
-        // console.log(tanggal)
-        let qtyUser = this.state.order
-
-        axios.get(`/cart/${this.props._id}/${id}`)
-        .then((res)=>{
+            var path = this.props.location.pathname
+            path = path.split('/')
+            var id = path[2]
+            
+            let tanggal = new Date()
+            tanggal = moment(tanggal).format('YYYY-MM-DD HH:mm:ss')
+            // console.log(tanggal)
+            let qtyUser = this.state.order
+            
+            axios.get(`/cart/${this.props._id}/${id}`)
+            .then((res)=>{
             console.log(res.data)
             if(res.data.length === 0){
                 axios.post(`/cart`,
@@ -87,18 +93,19 @@ export class DetailEvent extends Component {
                 }).catch((err)=>{
                     console.log(err)
                 })
-
-
+                
+                
             }
             // if(this.state.cart)
         })
         .catch((err)=>{
             console.log(err)
         })
+    }
+        
+        
 
-
-
-
+        
 
         
     }
@@ -259,7 +266,8 @@ export class DetailEvent extends Component {
 }
 const mapStateToProps = (state) =>{
     return {
-        _id : state.auth.id
+        _id : state.auth.id,
+        _username : state.auth.username
     
 }
 }

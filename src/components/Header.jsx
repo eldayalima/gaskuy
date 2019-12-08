@@ -61,13 +61,14 @@ export class Header extends Component {
 
 
             this.setState({modal:false})
-
-            let {username , id,avatar} = res.data[0]
-            localStorage.setItem('user' , JSON.stringify({username ,id,avatar}))
+            console.log(res.data[0])
+            let {username , id,avatar,role} = res.data[0]
+            localStorage.setItem('user' , JSON.stringify({username ,id,avatar,role}))
             this.props.sendData(
                 username,
                 id,
-                avatar
+                avatar,
+                role
             )
 
         }).catch(err=>{
@@ -130,6 +131,61 @@ export class Header extends Component {
             </Nav>
         )
 
+        }else if (this.props._role === 1){
+            return(
+                <Nav className="ml-auto container" navbar style={{marginRight:20}}>
+
+                <NavItem style={{marginRight:30, marginLeft:30,marginTop:10}}>
+                    <NavLink tag={Link} to='/'>
+                        <p style={{color:'white'}}>
+                            Home
+                        </p>
+                    </NavLink>
+                </NavItem>
+
+                <NavItem style={{marginRight:30, marginLeft:30,marginTop:10}}>
+                    <NavLink href="/">
+                        <p style={{color:'white'}}>
+                            About
+                        </p>
+                    </NavLink>
+                </NavItem>
+
+                <NavItem style={{marginRight:50, marginLeft:30,marginTop:10}}>
+                    <NavLink href="/event?category=all">
+                    <p style={{color:'white'}}>
+                            Event
+                        </p>
+                    </NavLink>
+                </NavItem>
+
+            <UncontrolledDropdown>
+            <DropdownToggle nav inNavbar style={{color:'white'}}>
+                <img src={'http://localhost:1996/public/uploads/user/' + this.props._avatar} style={{width:50, height:50, borderRadius:100}}  alt=""/>
+            </DropdownToggle>
+                
+
+            <DropdownMenu>
+                <span style={{fontFamily:'arial bold',fontSize:19}} className=''>
+                Hello, {this.props._username}
+                </span>
+                <NavLink tag={Link} to='/profil'>
+                <DropdownItem>Profile</DropdownItem>
+                </NavLink>
+                <NavLink tag={Link} to='/admin'>
+                <DropdownItem>Menu Admin</DropdownItem>
+                </NavLink>
+
+                <DropdownItem divider/>
+                <NavLink onClick={this.props.onLougoutUser}>
+                <DropdownItem style={{color:'red'}}>Logout</DropdownItem>
+                </NavLink>
+                
+            </DropdownMenu>
+
+            </UncontrolledDropdown>
+        </Nav>
+            )
         }else{
             return(
             <Nav className="ml-auto container" navbar style={{marginRight:20}}>
@@ -267,7 +323,8 @@ export class Header extends Component {
 const mapStateToProps = (state) =>{
     return {
         _username : state.auth.username,
-        _avatar : state.auth.avatar
+        _avatar : state.auth.avatar,
+        _role : state.auth.role
     } 
     
 }

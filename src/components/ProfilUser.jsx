@@ -31,6 +31,9 @@ export class ProfilUser extends Component {
        
     }
     componentDidMount() {
+        if(!this.props._username){
+            alert('Silahkan Login Terlebih Dahulu')
+        }
         axios.get(`/user/profil/${this.props._username}`)
         .then((res)=>{
             this.setState({profil : res.data})
@@ -70,14 +73,12 @@ export class ProfilUser extends Component {
         let transaksi = this.state.transaksi.map((val)=>{
             var tanggal = moment(val.tanggal_pembelian).format('LLLL')
             var total = val.grand_total
-            var kuantiti = val.qty
             var status = val.status
             return(
                 <tr>
                     <td>1</td>
                     <td>{tanggal} </td>
                     <td>{total} </td>
-                    <td>{kuantiti} </td>
                     <td>{status ? status === 0 : <mark color='black'>Pending</mark>} </td>
                     <button className='btn btn-primary' onClick={()=>{this.modalDetail(val.idpayment)}}>Detail</button>
                 </tr>
@@ -256,9 +257,8 @@ export class ProfilUser extends Component {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Total Harga</th>
-                                <th>Nama Pembeli</th>
-                                <th>Kuantiti</th>
+                                <th>Tanggal Pembelian</th>
+                                <th>Total</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>

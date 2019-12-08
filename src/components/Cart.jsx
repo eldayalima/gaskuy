@@ -25,20 +25,18 @@ export class Cart extends Component {
         }))
     }
     checkOut = () =>{
-        var tanggal_pembelian = Date.now()
-        tanggal_pembelian = moment(tanggal_pembelian).format('YYYY-MM-DD HH:mm:ss')
-        console.log(tanggal_pembelian)
-        let grand_total = this.totalHargaCart()
-        console.log(grand_total)
-        let idUser = this.props._id
-        console.log(idUser)
-        axios.post(`/user/transaksi/${this.props._id}`,
-        {
-            tanggal_pembelian : tanggal_pembelian,
-            grand_total : grand_total,
-            id_users : idUser
+        let formData = new FormData()
+        var datainputs = {
+            tanggal_pembelian : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+            grand_total : this.totalHargaCart(),
+            id_users : this.props._id
         }
-        )
+        // console.log(datainput)
+        var data = JSON.stringify(datainputs)
+        formData.append('data' ,data)
+        formData.append('bukti_transaksi' , this.bukti_transfer.files[0])
+
+        axios.post(`/user/transaksi/${this.props._username}/${this.props._id}`,formData)
         .then((res)=>{
             if(res.data.error) return console.log(res.data.error)
             alert('Berhasil Di CheckOut')
@@ -175,7 +173,8 @@ export class Cart extends Component {
                                     </h5>
                                 </ModalBody>
                                 <ModalBody>
-                                    Upload Bukti Pembayaran Anda<input className='form-control' placeholder='Masukan Password' type="file"/>
+                                    Upload Bukti Pembayaran Anda<input className='form-control' placeholder='Masukan Bukti Transfer'
+                                    ref={(input)=>{this.bukti_transfer = input}} type="file"/>
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button color="primary" onClick={this.checkOut}>Konfirmasi</Button>
@@ -191,7 +190,8 @@ export class Cart extends Component {
 }
 const mapStateToProps = (state) => {
     return{
-        _id : state.auth.id
+        _id : state.auth.id,
+        _username : state.auth.username
     }
 }
 
