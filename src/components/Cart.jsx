@@ -53,7 +53,8 @@ export class Cart extends Component {
             axios.get(`/cart/${this.props._id}`)
         .then((res)=>{
             if (res.data.error) return console.log(res.data.error)
-            this.setState({cart : res.data, afterCheckOut : true})
+            this.setState({cart : res.data, afterCheckOut : false})
+            console.log('update')
             // console.log(this.state.cart[0].tanggal)
         })
         .catch((err)=>{

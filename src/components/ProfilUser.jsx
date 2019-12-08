@@ -71,6 +71,7 @@ export class ProfilUser extends Component {
             )
         }
         let transaksi = this.state.transaksi.map((val)=>{
+            console.log(val)
             var tanggal = moment(val.tanggal_pembelian).format('LLLL')
             var total = val.grand_total
             var status = val.status
@@ -79,7 +80,7 @@ export class ProfilUser extends Component {
                     <td>1</td>
                     <td>{tanggal} </td>
                     <td>{total} </td>
-                    <td>{status ? status === 0 : <mark color='black'>Pending</mark>} </td>
+                    <td>{status === 0 ? <mark>Menunggu Konfirmasi</mark> : status===1 ? <mark>Terkonfirmasi</mark> : <mark>Ditolak</mark>} </td>
                     <button className='btn btn-primary' onClick={()=>{this.modalDetail(val.idpayment)}}>Detail</button>
                 </tr>
             )
