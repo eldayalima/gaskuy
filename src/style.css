@@ -22,7 +22,7 @@
 
 }
 .bg-page-three{
-    background-image: url('./image/bgPage3.jpg');
+    background-image: url('./image/content5.jpg');
     background-color: black;
     background-size: cover;
     background-repeat: no-repeat;
@@ -32,8 +32,6 @@
     top: 0;
     bottom: 0;
     z-index: -10;
-    border-radius: 5%;
-    margin-top: 50px;
     
 
 }

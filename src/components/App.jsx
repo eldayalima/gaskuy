@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../style.css'
-import {BrowserRouter , Route} from 'react-router-dom'
+import {BrowserRouter , Route, Switch} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 import Header from './Header'
@@ -17,6 +17,7 @@ import Register2 from './Register2'
 import {keepLogin} from '../action/index' 
 import verification_success from './verification_success'
 import AppAdmin from './admin/AdminPage'
+import PageNotFound from './PageNotFound'
 
 export class App extends Component {
     state = {
@@ -33,12 +34,13 @@ export class App extends Component {
     render() {
         if(this.state.check){
             return (
-            <BrowserRouter>
+                <BrowserRouter>
                 <div>
                     <Header/>
                     <Route exact path='/'  component ={PageOne}/>
                     {/* <Route  exact path='/'  component ={PageTwo}/> */}
                     <Route  exact path='/'  component ={PageThree}/>
+                <Switch>
                     <Route  exact path='/' component ={PageFourth}/>
                     <Route  path='/register' component ={Register}/>
                     <Route path='/event-detail/:idEvent' component ={DetailEvent} />
@@ -48,7 +50,8 @@ export class App extends Component {
                     <Route path='/verification-success/:username' component ={verification_success} />
                     <Route path='/userdetails/:id' component ={Register2} />
                     <Route path='/admin' component ={AppAdmin} />
-                    
+                    <Route path='*' component ={PageNotFound} />
+            </Switch>
                 </div>
             </BrowserRouter>
             )

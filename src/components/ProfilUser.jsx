@@ -6,6 +6,8 @@ import {connect} from 'react-redux'
 import axios from '../config/axios'
 import { isNull } from 'util';
 import * as moment from 'moment';
+import {Redirect} from 'react-router-dom'
+
 
 
 export class ProfilUser extends Component {
@@ -31,9 +33,7 @@ export class ProfilUser extends Component {
        
     }
     componentDidMount() {
-        if(!this.props._username){
-            alert('Silahkan Login Terlebih Dahulu')
-        }
+        
         axios.get(`/user/profil/${this.props._username}`)
         .then((res)=>{
             this.setState({profil : res.data})
@@ -168,7 +168,11 @@ export class ProfilUser extends Component {
 
 
     render() {
-
+        if(!this.props._id){
+            return(
+                <Redirect to='/'/>
+            )
+        }
         if(!isNull(this.state.profil) ){
 
         let {first_name,last_name,username,gender,email,tanggal_lahir,alamat,avatar,password} = this.state.profil

@@ -11,6 +11,7 @@ import {
 import axios from '../config/axios'
 import {connect} from 'react-redux'
 import * as moment from 'moment'
+import {Redirect} from 'react-router-dom'
 
 
 export class Cart extends Component {
@@ -114,6 +115,11 @@ export class Cart extends Component {
     }
 
     render() {
+        if(!this.props._id){
+            return(
+                <Redirect to='/'/>
+            )
+        }
         if(this.state.cart === null){
             return(
                 <div style={{marginTop:'40vh'}} className='d-flex justify-content-center'>
